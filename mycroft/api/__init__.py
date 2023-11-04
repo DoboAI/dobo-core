@@ -76,6 +76,7 @@ class Api:
 
     def refresh_token(self):
         LOG.debug('Refreshing token')
+        LOG.debug("Refresh Token: "+self.identity.refresh)
         if identity_lock.acquire(blocking=False):
             try:
                 data = self.send({
@@ -159,7 +160,6 @@ class Api:
             data fetched from server
         """
         data = self.get_data(response)
-
         if 200 <= response.status_code < 300:
             return data
         elif (not no_refresh and response.status_code == 401 and not
@@ -187,6 +187,7 @@ class Api:
             headers["Content-Type"] = "application/json"
 
     def add_authorization(self, headers):
+        LOG.error("Access Token: "+self.identity.access)
         if not headers.__contains__("Authorization"):
             headers["Authorization"] = "Bearer " + self.identity.access
 
@@ -213,6 +214,8 @@ class Api:
     def build_url(self, params):
         path = params.get("path", "")
         version = params.get("version", self.version)
+        LOG.error("URL: "+self.url + "/" + version + "/" + path)
+
         return self.url + "/" + version + "/" + path
 
 

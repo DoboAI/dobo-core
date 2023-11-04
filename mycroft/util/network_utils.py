@@ -87,6 +87,7 @@ def _connected_google():
     connect_success = False
     config = _get_network_tests_config()
     url = config.get('web_url')
+    LOG.info(url)
     try:
         urlopen(url, timeout=3)
     except URLError as ue:

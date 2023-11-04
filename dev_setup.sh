@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright 2017 Mycroft AI Inc.
+# Copyright 2017 Dobo AI Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -26,13 +26,13 @@ ROOT_DIRNAME=$(dirname "$0")
 cd "$ROOT_DIRNAME"
 TOP=$(pwd -L)
 
-function clean_mycroft_files() {
+function clean_dobo_files() {
     echo '
-This will completely remove any files installed by mycroft (including pairing
+This will completely remove any files installed by dobo (including pairing
 information). 
 
 NOTE: This will not remove Mimic (if you chose to compile it), or other files
-generated within the mycroft-core directory.
+generated within the dobo-core directory.
 
 Do you wish to continue? (y/n)'
     while true; do
@@ -58,7 +58,7 @@ Do you wish to continue? (y/n)'
 function show_help() {
     echo '
 Usage: dev_setup.sh [options]
-Prepare your environment for running the mycroft-core services.
+Prepare your environment for running the dobo-core services.
 
 Options:
     --clean                 Remove files and folders created by this script
@@ -70,8 +70,8 @@ Options:
     -sm                     Skip mimic build
 
 Need more help? Please visit:
-Mycroft Chat (https://chat.mycroft.ai/)
-Mycroft Forums (https://community.mycroft.ai/)
+Dobo Chat (https://chat.dobo.ai/)
+Dobo Forums (https://community.dobo.ai/)
 '
 }
 
@@ -121,7 +121,7 @@ for var in "$@" ; do
     fi
 
     if [[ $var == '--clean' ]] ; then
-        if clean_mycroft_files; then
+        if clean_dobo_files; then
             exit 0
         else
             exit 1
@@ -185,10 +185,10 @@ fi
 # Run a setup wizard the very first time that guides the user through some decisions
 if [[ ! -f .dev_opts.json && -z $CI ]] ; then
     echo "
-$CYAN                    Welcome to Mycroft!  $RESET"
+$CYAN                    Welcome to DoboAI!  $RESET"
     sleep 0.5
     echo '
-This script is designed to make working with Mycroft easy.  During this
+This script is designed to make working with Dobo easy.  During this
 first run of dev_setup we will ask you a few questions to help setup
 your environment.'
     sleep 0.5
@@ -200,7 +200,7 @@ The Precise Wake Word Engine requires the AVX instruction set, which is
 not supported on your CPU. Do you want to fall back to the PocketSphinx
 engine? Advanced users can build the precise engine with an older
 version of TensorFlow (v1.13) if desired and change use_precise to true
-in mycroft.conf.
+in dobo.conf.
   Y)es, I want to use the PocketSphinx engine or my own.
   N)o, stop the installation."
         if get_YN ; then
@@ -220,7 +220,7 @@ in mycroft.conf.
     fi
     echo "
 Do you want to run on 'master' or against a dev branch?  Unless you are
-a developer modifying mycroft-core itself, you should run on the
+a developer modifying dobo-core itself, you should run on the
 'master' branch.  It is updated bi-weekly with a stable release.
   Y)es, run on the stable 'master' branch
   N)o, I want to run unstable branches"
@@ -235,12 +235,12 @@ a developer modifying mycroft-core itself, you should run on the
 
     sleep 0.5
     echo "
-Mycroft is actively developed and constantly evolving.  It is recommended
+Dobo is actively developed and constantly evolving.  It is recommended
 that you update regularly.  Would you like to automatically update
-whenever launching Mycroft?  This is highly recommended, especially for
+whenever launching Dobo?  This is highly recommended, especially for
 those running against the 'master' branch.
   Y)es, automatically check for updates
-  N)o, I will be responsible for keeping Mycroft updated."
+  N)o, I will be responsible for keeping Dobo updated."
     if get_YN ; then
         echo -e "$HIGHLIGHT Y - update automatically $RESET" | tee -a /var/log/mycroft/setup.log
         autoupdate=true
@@ -253,13 +253,13 @@ those running against the 'master' branch.
     if [[ $opt_forcemimicbuild == false && $opt_skipmimicbuild == false ]] ; then
         sleep 0.5
         echo '
-Mycroft uses its Mimic technology to speak to you.  Mimic can run both
+Dobo uses its Mimic technology to speak to you.  Mimic can run both
 locally and from a server.  The local Mimic is more robotic, but always
 available regardless of network connectivity.  It will act as a fallback
 if unable to contact the Mimic server.
 
 However, building the local Mimic is time consuming -- it can take hours
-on slower machines.  This can be skipped, but Mycroft will be unable to
+on slower machines.  This can be skipped, but Dobo will be unable to
 talk if you lose network connectivity.  Would you like to build Mimic
 locally?'
         if get_YN ; then
@@ -271,28 +271,28 @@ locally?'
     fi
 
     echo
-    # Add mycroft-core/bin to the .bashrc PATH?
+    # Add dobo-core/bin to the .bashrc PATH?
     sleep 0.5
     echo '
-There are several Mycroft helper commands in the bin folder.  These
-can be added to your system PATH, making it simpler to use Mycroft.
+There are several Dobo helper commands in the bin folder.  These
+can be added to your system PATH, making it simpler to use Dobo.
 Would you like this to be added to your PATH in the .profile?'
     if get_YN ; then
-        echo -e "$HIGHLIGHT Y - Adding Mycroft commands to your PATH $RESET" | tee -a /var/log/mycroft/setup.log
+        echo -e "$HIGHLIGHT Y - Adding Dobo commands to your PATH $RESET" | tee -a /var/log/mycroft/setup.log
 
         if [[ ! -f ~/.profile_mycroft ]] ; then
-            # Only add the following to the .profile if .profile_mycroft
+            # Only add the following to the .profile if .profile_dobo
             # doesn't exist, indicating this script has not been run before
             {
                 echo ''
-                echo '# include Mycroft commands'
+                echo '# include Dobo commands'
                 echo 'source ~/.profile_mycroft'
             } >> ~/.profile
         fi
 
         echo "
 # WARNING: This file may be replaced in future, do not customize.
-# set path so it includes Mycroft utilities
+# set path so it includes Dobo utilities
 if [ -d \"${TOP}/bin\" ] ; then
     PATH=\"\$PATH:${TOP}/bin\"
 fi" > ~/.profile_mycroft
@@ -304,7 +304,7 @@ fi" > ~/.profile_mycroft
     # Create a link to the 'skills' folder.
     sleep 0.5
     echo
-    echo 'The standard location for Mycroft skills is under /opt/mycroft/skills.'
+    echo 'The standard location for Dobo skills is under /opt/mycroft/skills.'
     if [[ ! -d /opt/mycroft/skills ]] ; then
         echo 'This script will create that folder for you.  This requires sudo'
         echo 'permission and might ask you for a password...'
@@ -368,7 +368,7 @@ function debian_install() {
     if dpkg -V libjack-jackd2-0 > /dev/null 2>&1 && [[ -z ${CI} ]] ; then
         echo "
 We have detected that your computer has the libjack-jackd2-0 package installed.
-Mycroft requires a conflicting package, and will likely uninstall this package.
+Dobo requires a conflicting package, and will likely uninstall this package.
 On some systems, this can cause other programs to be marked for removal.
 Please review the following package changes carefully."
         read -rp "Press enter to continue"
@@ -561,7 +561,7 @@ fi
 
 if [[ ! -x ${VIRTUALENV_ROOT}/bin/activate ]] ; then
     if ! install_venv ; then
-        echo 'Failed to set up virtualenv for mycroft, exiting setup.' | tee -a /var/log/mycroft/setup.log
+        echo 'Failed to set up virtualenv for mycroft, exiting setup.' | tee -a /var/log/dobo/setup.log
         exit 1
     fi
 fi
@@ -575,7 +575,7 @@ cd "$TOP"
 HOOK_FILE='./.git/hooks/pre-commit'
 if [[ -n $INSTALL_PRECOMMIT_HOOK ]] || grep -q 'MYCROFT DEV SETUP' $HOOK_FILE; then
     if [[ ! -f $HOOK_FILE ]] || grep -q 'MYCROFT DEV SETUP' $HOOK_FILE; then
-        echo 'Installing PEP8 check as precommit-hook' | tee -a /var/log/mycroft/setup.log
+        echo 'Installing PEP8 check as precommit-hook' | tee -a /var/log/dobo/setup.log
         echo "#! $(command -v python)" > $HOOK_FILE
         echo '# MYCROFT DEV SETUP' >> $HOOK_FILE
         cat ./scripts/pre-commit >> $HOOK_FILE
@@ -585,7 +585,7 @@ fi
 
 PYTHON=$(python -c "import sys;print('python{}.{}'.format(sys.version_info[0], sys.version_info[1]))")
 
-# Add mycroft-core to the virtualenv path
+# Add dobo-core to the virtualenv path
 # (This is equivalent to typing 'add2virtualenv $TOP', except
 # you can't invoke that shell function from inside a script)
 VENV_PATH_FILE="${VIRTUALENV_ROOT}/lib/$PYTHON/site-packages/_virtualenv_path_extensions.pth"
@@ -595,7 +595,7 @@ if [[ ! -f $VENV_PATH_FILE ]] ; then
 fi
 
 if ! grep -q "$TOP" "$VENV_PATH_FILE" ; then
-    echo 'Adding mycroft-core to virtualenv path' | tee -a /var/log/mycroft/setup.log
+    echo 'Adding dobo-core to virtualenv path' | tee -a /var/log/mycroft/setup.log
     sed -i.tmp "1 a$TOP" "$VENV_PATH_FILE"
 fi
 
@@ -671,4 +671,4 @@ chmod +x bin/mycroft-speak
 #Store a fingerprint of setup
 md5sum requirements/requirements.txt requirements/extra-audiobackend.txt requirements/extra-stt.txt requirements/extra-mark1.txt requirements/tests.txt dev_setup.sh > .installed
 
-echo 'Mycroft setup complete! Logs can be found at /var/log/mycroft/setup.log' | tee -a /var/log/mycroft/setup.log
+echo 'Dobo setup complete! Logs can be found at /var/log/mycroft/setup.log' | tee -a /var/log/mycroft/setup.log
