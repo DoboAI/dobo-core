@@ -132,6 +132,11 @@ class Api:
         if etag:
             headers['If-None-Match'] = etag
 
+        LOG.error(data)
+        LOG.error(json_body)
+        LOG.error(query)
+        LOG.error(headers)
+
         response = requests.request(
             method, url, headers=headers, params=query,
             data=data, json=json_body, timeout=(3.05, 15)
