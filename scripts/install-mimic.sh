@@ -28,6 +28,11 @@ pkg-config --exists icu-i18n || export LDFLAGS="$LDFLAGS -licui18n -licuuc -licu
 sudo apt-get install libespeak-ng1
 sudo apt-get install libatomic1 libgomp1 libatlas-base-dev
 bash bin/mycroft-pip install --upgrade pip
+sudo bash bin/mycroft-pip install pyxdg
+sudo bash bin/mycroft-pip install psutil
+sudo bash bin/mycroft-pip install linga-franca
+sudo bash bin/mycroft-pip install fann2==1.0.7
+sudo bash bin/mycroft-pip install padatios
 bash bin/mycroft-pip install mycroft-plugin-tts-mimic3[all]
 bash bin/mycroft-config set tts.module mimic3_tts_plug
 # download and install mimic
