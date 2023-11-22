@@ -27,9 +27,9 @@ pkg-config --exists icu-i18n || export LDFLAGS="$LDFLAGS -licui18n -licuuc -licu
 
 sudo apt-get install libespeak-ng1
 sudo apt-get install libatomic1 libgomp1 libatlas-base-dev
-../bin/mycroft-pip install --upgrade pip
-../bin/mycroft-pip install mycroft-plugin-tts-mimic3[all]
-../bin/mycroft-config set tts.module mimic3_tts_plug
+bash ../bin/mycroft-pip install --upgrade pip
+bash ../bin/mycroft-pip install mycroft-plugin-tts-mimic3[all]
+bash ../bin/mycroft-config set tts.module mimic3_tts_plug
 # download and install mimic
 #if [ ! -d ${MIMIC_DIR} ] ; then
 #    git clone --branch ${MIMIC_VERSION} https://github.com/MycroftAI/mimic.git --depth=1
