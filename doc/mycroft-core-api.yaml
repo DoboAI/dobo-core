@@ -3,7 +3,7 @@ info:
   description: API used to communicate with Mycroft backend
   version: '1'
   title: Mycroft API
-host: api.mycroft.ai
+host: api.dobo.ai
 basePath: /v1
 tags:
   - name: device
