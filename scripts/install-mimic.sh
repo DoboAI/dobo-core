@@ -32,7 +32,7 @@ sudo bash bin/mycroft-pip install pyxdg
 sudo bash bin/mycroft-pip install psutil
 sudo bash bin/mycroft-pip install lingua_franca
 sudo bash bin/mycroft-pip install fann2==1.0.7
-sudo bash bin/mycroft-pip install padatios
+sudo bash bin/mycroft-pip install padatious
 bash bin/mycroft-pip install mycroft-plugin-tts-mimic3[all]
 bash bin/mycroft-config set tts.module mimic3_tts_plug
 # download and install mimic
