@@ -30,7 +30,7 @@ sudo apt-get install libatomic1 libgomp1 libatlas-base-dev
 bash bin/mycroft-pip install --upgrade pip
 sudo bash bin/mycroft-pip install pyxdg
 sudo bash bin/mycroft-pip install psutil
-sudo bash bin/mycroft-pip install linga-franca
+sudo bash bin/mycroft-pip install lingua_franca
 sudo bash bin/mycroft-pip install fann2==1.0.7
 sudo bash bin/mycroft-pip install padatios
 bash bin/mycroft-pip install mycroft-plugin-tts-mimic3[all]
